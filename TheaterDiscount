@@ -1,0 +1,53 @@
+import java.util.*;
+
+class TheaterDiscount {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter class type (k/q):");
+        char type = sc.next().toLowerCase().charAt(0);
+
+        // Validate class type
+        if (type != 'k' && type != 'q') {
+            System.out.println("Invalid Input");
+            return;
+        }
+
+        System.out.println("Enter number of tickets:");
+        int tickets = sc.nextInt();
+
+        // Check ticket range
+        if (tickets < 5 || tickets > 40) {
+            System.out.println("Minimum of 5 and Maximum of 40 Tickets");
+            return;
+        }
+
+        // Get base cost per ticket
+        int costPerTicket = (type == 'k') ? 75 : 150;
+        double totalCost = tickets * costPerTicket;
+
+        // Apply 10% discount if more than 20 tickets
+        if (tickets > 20) {
+            totalCost = totalCost - (0.10 * totalCost);
+        }
+
+        System.out.println("Do you have a coupon card? (yes/no):");
+        String coupon = sc.next().toLowerCase();
+
+        // Apply 2% extra discount if coupon card is available
+        if (coupon.equals("yes")) {
+            totalCost = totalCost - (0.02 * totalCost);
+        }
+
+        System.out.println("Do you want refreshments? (yes/no):");
+        String refreshment = sc.next().toLowerCase();
+
+        // Add Rs.50 per member for refreshments
+        if (refreshment.equals("yes")) {
+            totalCost += tickets * 50;
+        }
+
+        // Display total amount
+        System.out.printf("Total cost: Rs.%.2f%n", totalCost);
+    }
+}
